@@ -1,0 +1,98 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class WelcomePage extends JFrame {
+    public WelcomePage() {
+        setTitle("Welcome to Lost World of Tambun Inventory Management System");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        // Load the image
+        ImageIcon imageIcon = new ImageIcon("E:/blue j/swc/project final/image/1.jpg"); 
+        JLabel imageLabel = new JLabel(imageIcon);
+        
+        JLabel welcomeLabel = new JLabel("Welcome to Lost World of Tambun Inventory Management System");
+        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JButton foodButton = new JButton("Food & Beverages");
+        JButton merchandiseButton = new JButton("Merchandise");
+        JButton souvenirsButton = new JButton("Souvenirs");
+        JButton essentialsButton = new JButton("Essentials");
+        JButton miscellaneousButton = new JButton("Miscellaneous");
+        JButton backButton = new JButton("Back");
+
+        foodButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                foodAndBeverages foodAndBeverages = new foodAndBeverages();
+                foodAndBeverages.setVisible(true);
+                dispose();
+            }
+        });
+
+        merchandiseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Merchandise merchandise = new Merchandise();
+                merchandise.setVisible(true);
+                dispose();
+            }
+        });
+
+        souvenirsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Souvenirs souvenirs = new Souvenirs();
+                souvenirs.setVisible(true);
+                dispose();
+            }
+        });
+
+        essentialsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Essentials essentials = new Essentials();
+                essentials.setVisible(true);
+                dispose();
+            }
+        });
+
+        miscellaneousButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Miscellaneous miscellaneous = new Miscellaneous();
+                miscellaneous.setVisible(true);
+                dispose();
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SignInPage signInPage = new SignInPage();
+                signInPage.setVisible(true);
+                dispose();
+            }
+        });
+
+        JPanel panel = new JPanel(new GridLayout(8, 1));
+        panel.add(imageLabel);
+        panel.add(welcomeLabel);
+        panel.add(foodButton);
+        panel.add(merchandiseButton);
+        panel.add(souvenirsButton);
+        panel.add(essentialsButton);
+        panel.add(miscellaneousButton);
+        panel.add(backButton);
+
+        getContentPane().add(panel, BorderLayout.CENTER);
+        setSize(400, 600);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new WelcomePage());
+    }
+}
