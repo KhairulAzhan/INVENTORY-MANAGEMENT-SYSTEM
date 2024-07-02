@@ -1,0 +1,111 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Souvenirs extends JFrame {
+    private DefaultListModel<String> itemListModel;
+    private JList<String> itemList;
+    private JTextField itemTextField;
+
+    public Souvenirs() {
+        setTitle("Souvenirs");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // List of Souvenirs items
+        String[] items = {
+            "-------------------------------------------------Souvenirs--------------------------------------------------",
+            "T-Shirts",
+            "Hoodies",
+            "Keychains",
+            "Magnets",
+            "Postcards",
+            "Stuffed Animals",
+            "Mugs",
+            "Water Bottles",
+            "---------------------------------------------------------------------------------------------------"
+        };
+
+        // Initialize list model and add initial items
+        itemListModel = new DefaultListModel<>();
+        for (String item : items) {
+            itemListModel.addElement(item);
+        }
+
+        // Create JList to display the items
+        itemList = new JList<>(itemListModel);
+        itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scrollPane = new JScrollPane(itemList);
+
+        // Text field for adding new items
+        itemTextField = new JTextField(20);
+
+        // Add button
+        JButton addButton = new JButton("Add");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String newItem = itemTextField.getText().trim();
+                if (!newItem.isEmpty()) {
+                    itemListModel.addElement(newItem);
+                    itemTextField.setText("");
+                }
+            }
+        });
+
+        // Delete button
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = itemList.getSelectedIndex();
+                if (selectedIndex != -1) {
+                    itemListModel.remove(selectedIndex);
+                }
+            }
+        });
+
+        // Back button to navigate back to the Welcome Page
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                WelcomePage welcomePage = new WelcomePage();
+                welcomePage.setVisible(true);
+                dispose();
+            }
+        });
+
+        // Panel to hold the text field and buttons
+        JPanel inputPanel = new JPanel(new FlowLayout());
+        inputPanel.add(new JLabel("New Item:"));
+        inputPanel.add(itemTextField);
+        inputPanel.add(addButton);
+        inputPanel.add(deleteButton);
+
+        // Panel to hold the list and separators
+        JPanel listPanel = new JPanel(new BorderLayout(10, 10));
+        listPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add separators
+        JPanel separatorPanel = new JPanel();
+        separatorPanel.setLayout(new BoxLayout(separatorPanel, BoxLayout.Y_AXIS));
+        separatorPanel.add(Box.createVerticalStrut(10));
+        separatorPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        separatorPanel.add(listPanel);
+        separatorPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        separatorPanel.add(inputPanel);
+        separatorPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        separatorPanel.add(backButton);
+        separatorPanel.add(Box.createVerticalStrut(10));
+
+        getContentPane().add(separatorPanel);
+        setSize(400, 400);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Souvenirs());
+    }
+}
