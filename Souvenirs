@@ -23,7 +23,7 @@ public class Souvenirs extends JFrame {
             "Stuffed Animals",
             "Mugs",
             "Water Bottles",
-            "---------------------------------------------------------------------------------------------------"
+            "-------------------------------------------------New Items---------------------------------------------------",
         };
 
         // Initialize list model and add initial items
