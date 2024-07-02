@@ -7,13 +7,18 @@ public class WelcomePage extends JFrame {
     public WelcomePage() {
         setTitle("Welcome to Lost World of Tambun Inventory Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        // Load the image
-        ImageIcon imageIcon = new ImageIcon("E:/blue j/swc/project final/image/1.jpg"); 
+
+        // Load the image and scale it
+        ImageIcon imageIcon = new ImageIcon("E:/blue j/swc/project final/image/1.jpeg");
+        Image image = imageIcon.getImage();
+        Image newImg = image.getScaledInstance(-1, 800, Image.SCALE_SMOOTH); // Scale to width and height
+        imageIcon = new ImageIcon(newImg);
+
         JLabel imageLabel = new JLabel(imageIcon);
-        
-        JLabel welcomeLabel = new JLabel("Welcome to Lost World of Tambun Inventory Management System");
-        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Adjusted button sizes
+        Dimension buttonSize = new Dimension(150, 50);
 
         JButton foodButton = new JButton("Food & Beverages");
         JButton merchandiseButton = new JButton("Merchandise");
@@ -22,6 +27,15 @@ public class WelcomePage extends JFrame {
         JButton miscellaneousButton = new JButton("Miscellaneous");
         JButton backButton = new JButton("Back");
 
+        // Set button sizes
+        foodButton.setPreferredSize(buttonSize);
+        merchandiseButton.setPreferredSize(buttonSize);
+        souvenirsButton.setPreferredSize(buttonSize);
+        essentialsButton.setPreferredSize(buttonSize);
+        miscellaneousButton.setPreferredSize(buttonSize);
+        backButton.setPreferredSize(buttonSize);
+
+        // Button action listeners
         foodButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,18 +90,24 @@ public class WelcomePage extends JFrame {
             }
         });
 
-        JPanel panel = new JPanel(new GridLayout(8, 1));
-        panel.add(imageLabel);
-        panel.add(welcomeLabel);
-        panel.add(foodButton);
-        panel.add(merchandiseButton);
-        panel.add(souvenirsButton);
-        panel.add(essentialsButton);
-        panel.add(miscellaneousButton);
-        panel.add(backButton);
+        // Main panel with BorderLayout to position components
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(imageLabel, BorderLayout.CENTER);
 
-        getContentPane().add(panel, BorderLayout.CENTER);
-        setSize(400, 600);
+        // Panel for buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        buttonPanel.add(foodButton);
+        buttonPanel.add(merchandiseButton);
+        buttonPanel.add(souvenirsButton);
+        buttonPanel.add(essentialsButton);
+        buttonPanel.add(miscellaneousButton);
+        buttonPanel.add(backButton);
+
+        // Add button panel to main panel
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        getContentPane().add(mainPanel);
+        pack(); // Adjust frame size based on components
         setLocationRelativeTo(null);
         setVisible(true);
     }
